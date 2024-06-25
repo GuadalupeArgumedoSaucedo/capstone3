@@ -86,3 +86,18 @@ function logout() {
         });
 }
 
+// Event listener for login form submission
+document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("login-form");
+
+    if (loginForm) {
+        loginForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            await login(username, password);
+        });
+    }
+});

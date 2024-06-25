@@ -28,11 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const postData = {
-            content: postContent,
+            text: postContent,  // Changed from content to text
         };
 
         try {
-            const response = await fetch(`http://microbloglite.us-east-2.elasticbeanstalk.com/api/posts`, {
+            const response = await fetch(apiBaseURL + "/api/posts", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error('Network response was not ok ' + response.statusText);
+                throw new Error('Network response was not ok: ' + errorText);
             }
 
             const result = await response.json();
@@ -58,4 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+
+
 
