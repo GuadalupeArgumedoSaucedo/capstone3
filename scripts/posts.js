@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const postsContainer = document.getElementById('posts-container'); // Reference to the container where posts will be displayed
     const logoutButton = document.getElementById('logout-button'); // Reference to the logout button on the page
+    const sortOptions = document.getElementById('sort-options'); // Reference to the sort options dropdown
 
     // Function to retrieve posts asynchronously
     async function getPosts() {
@@ -158,26 +159,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to fetch and display posts
     async function fetchPosts() {
-        const loginData = getLoginData(); // Retrieve login data (like username and token) from localStorage
-        const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${loginData.token}` // Attach authorization token for API request
-            }
-        };
+        const posts = await getPosts(); // Retrieve posts asynchronously
+        const sortBy = sortOptions.value; // Get the selected sort option
 
-        try {
-            const response = await fetch(apiBaseURL + '/api/posts', options); // Fetch posts from API endpoint
-            if (!response.ok) {
-                throw new Error('Network response was not ok: ' + response.statusText); // Throw error if response is not successful
-            }
-            const posts = await response.json(); // Parse JSON response into JavaScript object
-            console.log('Fetched posts:', posts); // Log fetched posts to console for debugging
-            displayPosts(posts); // Call function to display posts on the webpage
-        } catch (error) {
-            console.error('There has been a problem with fetching posts:', error); // Log error if fetching posts fails
+        if (sortBy === 'author') {
+            posts.sort((a, b) => a.username.localeCompare(b.username)); // Sort posts by author name
+        } else {
+            posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Sort posts by most recent
         }
+
+        displayPosts(posts); // Display sorted posts
     }
 
     // Function to display posts on the webpage
@@ -221,6 +212,9 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutButton.addEventListener('click', () => {
         logout(); // Call logout function when logout button is clicked
     });
+
+    // Event listener for sort options change
+    sortOptions.addEventListener('change', fetchPosts); // Re-fetch and display posts when the sort
 
     // Fetch and display posts when the page is fully loaded
     fetchPosts();
