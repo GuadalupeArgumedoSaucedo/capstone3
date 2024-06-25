@@ -10,47 +10,45 @@ document.addEventListener("DOMContentLoaded", () => {
     const postsContainer = document.getElementById('posts-container'); // Reference to the container where posts will be displayed
     const logoutButton = document.getElementById('logout-button'); // Reference to the logout button on the page
 
-// Function to retrieve posts asynchronously
-async function getPosts() {
-    try {
-        const response = await fetch(`${apiBaseURL}/api/posts`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${getLoginData().token}` // Include authorization token
+    // Function to retrieve posts asynchronously
+    async function getPosts() {
+        try {
+            const response = await fetch(`${apiBaseURL}/api/posts`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${getLoginData().token}` // Include authorization token
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch posts');
             }
-        });
-        
-        if (!response.ok) {
-            throw new Error('Failed to fetch posts');
+
+            return await response.json(); // Return parsed JSON response
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+            return []; // Return empty array or handle error as needed
         }
-        
-        return await response.json(); // Return parsed JSON response
-    } catch (error) {
-        console.error('Error fetching posts:', error);
-        return []; // Return empty array or handle error as needed
     }
-}
 
+    // Function to find user's like for a specific post
+    async function findUserLike(postId) {
+        try {
+            const loginData = getLoginData(); // Retrieve login data from localStorage
+            const posts = await getPosts(); // Await the asynchronous getPosts() function
 
-// Function to find user's like for a specific post
-async function findUserLike(postId) {
-    try {
-        const loginData = getLoginData(); // Retrieve login data from localStorage
-        const posts = await getPosts(); // Await the asynchronous getPosts() function
+            // Find the post in the list
+            const post = posts.find(p => p._id === postId);
+            if (!post) return null;
 
-        // Find the post in the list
-        const post = posts.find(p => p._id === postId);
-        if (!post) return null;
-
-        // Find user's like in post.likes array
-        return post.likes.find(like => like.username === loginData.username);
-    } catch (error) {
-        console.error('Error finding user like:', error);
-        return null; // Handle error appropriately
+            // Find user's like in post.likes array
+            return post.likes.find(like => like.username === loginData.username);
+        } catch (error) {
+            console.error('Error finding user like:', error);
+            return null; // Handle error appropriately
+        }
     }
-}
-
 
     // Function to handle like button click
     async function handleLikeButtonClick(event) {
@@ -58,14 +56,14 @@ async function findUserLike(postId) {
         const postId = button.getAttribute('data-post-id'); // Get the post ID from the button's data attribute
         const liked = button.getAttribute('data-liked') === 'true'; // Check if the button was previously liked or not
         const likeCountElement = document.getElementById(`like-count-${postId}`); // Get the element displaying like count
-    
+
         if (!postId) {
             console.error('Post ID is not defined'); // Log error if post ID is missing
             return;
         }
-    
+
         const loginData = getLoginData(); // Retrieve login data from localStorage
-    
+
         try {
             let response;
             if (liked) {
@@ -75,7 +73,7 @@ async function findUserLike(postId) {
                     console.error('User did not like this post'); // Log error if user did not like this post
                     return;
                 }
-    
+
                 const options = {
                     method: 'DELETE',
                     headers: {
@@ -94,17 +92,17 @@ async function findUserLike(postId) {
                 };
                 response = await fetch(`${apiBaseURL}/api/likes`, options); // Send request to like the post
             }
-    
+
             if (!response.ok) {
                 throw new Error('Network response was not ok: ' + response.statusText); // Throw error if response is not successful
             }
-    
+
             const likeData = await response.json(); // Parse JSON response into JavaScript object
-    
+
             // Update button state based on like/unlike action
             button.setAttribute('data-liked', !liked); // Toggle liked state
             button.textContent = liked ? 'Like' : 'Unlike'; // Change button text based on current state
-    
+
             // Update like count displayed on the webpage
             const currentLikes = parseInt(likeCountElement.textContent, 10); // Get current number of likes
             likeCountElement.textContent = liked ? currentLikes - 1 : currentLikes + 1; // Increment or decrement like count based on like/unlike action
@@ -112,7 +110,51 @@ async function findUserLike(postId) {
             console.error('There has been a problem with your fetch operation:', error); // Log error if like/unlike operation fails
         }
     }
-    
+
+    // Function to handle post deletion
+    async function handlePostDelete(postId) {
+        const loginData = getLoginData(); // Retrieve login data (like username and token) from localStorage
+        try {
+            // Fetch the post details to check if the user is the owner of the post
+            const response = await fetch(`${apiBaseURL}/api/posts/${postId}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${loginData.token}` // Attach authorization token for API request
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch post details');
+            }
+
+            const post = await response.json(); // Parse JSON response into JavaScript object
+
+            // Check if the logged-in user is the owner of the post
+            if (post.username !== loginData.username) {
+                throw new Error('You can only delete your own posts');
+            }
+
+            // Proceed with deleting the post if ownership is confirmed
+            const deleteResponse = await fetch(`${apiBaseURL}/api/posts/${postId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${loginData.token}` // Attach authorization token for API request
+                }
+            });
+
+            if (!deleteResponse.ok) {
+                throw new Error('Failed to delete post');
+            }
+
+            // Remove the deleted post from the UI
+            const postElement = document.getElementById(`post-${postId}`);
+            if (postElement) {
+                postElement.remove();
+            }
+        } catch (error) {
+            console.error('Error deleting post:', error); // Log error if post deletion fails
+        }
+    }
 
     // Function to fetch and display posts
     async function fetchPosts() {
@@ -124,7 +166,7 @@ async function findUserLike(postId) {
                 'Authorization': `Bearer ${loginData.token}` // Attach authorization token for API request
             }
         };
-        
+
         try {
             const response = await fetch(apiBaseURL + '/api/posts', options); // Fetch posts from API endpoint
             if (!response.ok) {
@@ -144,6 +186,7 @@ async function findUserLike(postId) {
         posts.forEach(post => {
             const userLiked = post.likes.some(like => like.username === getLoginData().username); // Check if current user has liked this post
             const postElement = document.createElement('div'); // Create a new div element for each post
+            postElement.id = `post-${post._id}`; // Set id for the post element
             postElement.className = 'col-12 mb-4'; // Assign class for styling
             postElement.innerHTML = `
                 <div class="card">
@@ -152,11 +195,20 @@ async function findUserLike(postId) {
                         <h6 class="card-subtitle mb-2 text-muted">${new Date(post.createdAt).toLocaleString()}</h6>
                         <p class="card-text">${post.text}</p>
                         <button class="btn btn-like" data-post-id="${post._id}" data-liked="${userLiked}">${userLiked ? 'Unlike' : 'Like'}</button>
+                        ${post.username === getLoginData().username ? `<button class="btn btn-danger btn-delete" data-post-id="${post._id}" style="margin-left: 10px;">Delete</button>` : ''}
                         <span class="like-count ms-2" id="like-count-${post._id}">${post.likes.length}</span>
                     </div>
                 </div>
             `;
             postsContainer.appendChild(postElement); // Append the post element to the posts container
+
+            // Add event listener to delete button (only if the post belongs to the logged-in user)
+            if (post.username === getLoginData().username) {
+                const deleteButton = postElement.querySelector('.btn-delete');
+                if (deleteButton) {
+                    deleteButton.addEventListener('click', () => handlePostDelete(post._id));
+                }
+            }
         });
 
         // Add event listeners to like buttons
@@ -173,4 +225,3 @@ async function findUserLike(postId) {
     // Fetch and display posts when the page is fully loaded
     fetchPosts();
 });
-
