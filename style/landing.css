@@ -1,1 +1,88 @@
 /* Landing Page CSS */
+/* Apply full height and no margin to html and body */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Container for the video background */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Ensure the video fills the screen */
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Container for the main content */
+.container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Styling the form */
+form {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: #cccccc;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

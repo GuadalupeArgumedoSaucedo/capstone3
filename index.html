@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/style/global.css">
 
     <!-- Page-specific CSS -->
-    <link rel="stylesheet" href="/scripts/landing.js">
+    <link rel="stylesheet" href="/style/landing.css">
 
     <title>Login to the Microblog Network!</title>
 
@@ -28,27 +28,35 @@
 </head>
 <body>
 
-    <header>
-        <h1>Welcome to <code>YOUR MICROBLOG NETWORK</code></h1>
-    </header>
-
-    <main>
-
-        <form id="login">
-            <div>
-                <label for="username">Username</label>
-                <input type="text" id="username" minlength="3">
-            </div>
-
-            <div>
-                <label for="password">Password</label>
-                <input type="password" id="password" minlength="6">
-            </div>
-
-            <button id="loginButton" type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="register.html">Register here</a></p>
-    </main>
+    <div class="video-background">
+        <video autoplay muted loop id="bg-video">
+          <source src="/videos/3129671-uhd_3840_2160_30fps.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+      </div>
+  
+      <div class="container">
+          <header>
+              <h1>Welcome to <code>Software and Share</code></h1>
+          </header>
+          
+          <main>
+              <form id="login">
+                  <div>
+                      <label for="username">Username</label>
+                      <input type="text" id="username" minlength="3">
+                  </div>
+  
+                  <div>
+                      <label for="password">Password</label>
+                      <input type="password" id="password" minlength="6">
+                  </div>
+  
+                  <button id="loginButton" type="submit">Login</button>
+              </form>
+              <p>Don't have an account? <a href="register.html">Register here</a></p>
+          </main>
+      </div>
 
     <footer></footer>
 
