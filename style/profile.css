@@ -1,0 +1,22 @@
+/* Set black background color, white text and some padding */
+nav {
+    background-color: #4bdbc1;
+  }
+  
+  /* Ensure the navbar's container uses flex layout */
+  .navbar .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Ensure the nav links and the logout button are on the same flex line */
+  .navbar .navbar-nav {
+    display: flex;
+    flex-grow: 1;
+  }
+  
+  /* Push the logout button to the right */
+  .navbar .navbar-nav .nav-item:last-child {
+    margin-left: auto;
+  }
