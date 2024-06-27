@@ -37,7 +37,7 @@ nav {
 
 /* Remove the navbar's default margin-bottom and rounded borders */ 
 .navbar {
-  margin-bottom: 0;
+  margin-bottom: 0; 
   border-radius: 0;
 }
 
@@ -78,3 +78,25 @@ footer {
 .blockquote-footer {
   color: #4bdbc1;
 }
+/* Light mode styles */
+body {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.sidenav {
+  background-color: #f1f1f1; /* Light mode background color */
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+body.dark-mode .sidenav {
+  background-color: #242323; /* Dark mode background color */
+}
+
+/* Add more specific styles as needed for your application */
+

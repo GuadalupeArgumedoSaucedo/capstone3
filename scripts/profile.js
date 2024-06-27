@@ -203,3 +203,39 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const modeToggleBtn = document.getElementById('mode-toggle-btn');
+    const body = document.body;
+
+    // Check if user has a stored preference for mode
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+    // Function to set dark mode
+    const enableDarkMode = () => {
+        body.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'true');
+    };
+
+    // Function to set light mode
+    const enableLightMode = () => {
+        body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'false');
+    };
+
+    // Toggle mode on button click
+    modeToggleBtn.addEventListener('click', () => {
+        if (body.classList.contains('dark-mode')) {
+            enableLightMode();
+        } else {
+            enableDarkMode();
+        }
+    });
+
+    // Initialize based on user preference
+    if (isDarkMode) {
+        enableDarkMode();
+    } else {
+        enableLightMode();
+    }
+});
+

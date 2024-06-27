@@ -33,3 +33,4 @@ document.addEventListener('DOMContentLoaded', async function() {
       usersList.innerHTML = '<p>Failed to fetch users.</p>';
     }
   });
+  
