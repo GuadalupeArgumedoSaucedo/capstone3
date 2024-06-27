@@ -24,6 +24,13 @@ html, body {
     object-fit: cover;
 }
 
+.img-fluid{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+  }
+
 /* Container for the main content */
 .container {
     position: relative;
@@ -34,8 +41,8 @@ html, body {
     align-items: center;
     height: 100%;
     color: white;
-    padding: 20px;
     text-align: center;
+    padding-bottom: 20%; 
 }
 
 /* Styling the form */
