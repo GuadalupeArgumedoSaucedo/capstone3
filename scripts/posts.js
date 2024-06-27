@@ -200,7 +200,7 @@ function displayPosts(posts) {
                 </div>
             </div>
         `;
-        postsContainer.appendChild(postElement); // Append the post element to the posts container
+        postsContainer.appendChild(postElement); // Append the post element to the posts container 
 
         // Add event listener to delete button (only if the post belongs to the logged-in user)
         if (post.username === getLoginData().username) {
@@ -230,3 +230,23 @@ function displayPosts(posts) {
     // Fetch and display posts when the page is fully loaded
     fetchPosts();
 });
+
+// Get the button:
+let mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
