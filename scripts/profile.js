@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <div class="card-body">
                             <p class="card-text">${post.text}</p>
                             <p class="card-text"><small class="text-muted">${new Date(post.createdAt).toLocaleString()}</small></p>
+                            <span class="like-count ms-2" id="like-count-${post._id}">${post.likes.length}</span>
                         </div>
                     </div>
                 `).join('');
