@@ -41,6 +41,13 @@ nav {
   border-radius: 0;
 }
 
+.img-fluid{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 55%;
+}
+
 /* Use Flexbox for the main content area to ensure it stretches properly */  
 .container-fluid {
   display: flex;
