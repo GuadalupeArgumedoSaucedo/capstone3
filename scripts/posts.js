@@ -217,6 +217,8 @@ function displayPosts(posts) {
     });
 }
 
+
+
     // Function to handle logout button click
     logoutButton.addEventListener('click', () => {
         logout(); // Call logout function when logout button is clicked

@@ -1,22 +1,73 @@
+/* Posts Page CSS */
 /* Set black background color, white text and some padding */
 nav {
-    background-color: #4bdbc1;
-  }
-  
-  /* Ensure the navbar's container uses flex layout */
-  .navbar .container-fluid {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  /* Ensure the nav links and the logout button are on the same flex line */
-  .navbar .navbar-nav {
-    display: flex;
-    flex-grow: 1;
-  }
-  
-  /* Push the logout button to the right */
-  .navbar .navbar-nav .nav-item:last-child {
-    margin-left: auto;
-  }
+  background-color: #4bdbc1;
+}
+
+/* Ensure the navbar's container uses flex layout */
+.navbar .container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Ensure the nav links and the logout button are on the same flex line */
+.navbar .navbar-nav {
+  display: flex;
+  flex-direction: row; /* Ensure nav items are in a row */
+  flex-grow: 1;
+}
+
+/* Adjust nav link margins to ensure proper spacing */
+.navbar .nav-link {
+  margin-right: 10px; /* Adjust the margin as needed */
+  color: #000000; /* Original color */
+  transition: color 0.3s; /* Smooth transition for color change */
+}
+
+/* Change nav link color to white on hover */
+.navbar .nav-link:hover {
+  color: #ffffff; /* Change to white on hover */
+}
+
+/* Push the logout button to the right */
+.navbar .navbar-nav .nav-item:last-child {
+  margin-left: auto;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/* Use Flexbox for the main content area to ensure it stretches properly */  
+.container-fluid {
+  display: flex;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+  flex-grow: 1;
+  display: flex;
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+  padding-top: 20px;
+  background-color: #f1f1f1;
+  height: 100%;
+}
+
+
+/* Ensure footer stays at the bottom */
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+  margin-top: auto;
+}
+
+.blockquote-footer {
+  color: #4bdbc1;
+}
