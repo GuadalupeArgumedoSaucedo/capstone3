@@ -17,11 +17,12 @@
     <link rel="stylesheet" href="/style/global.css">
 
     <!-- Page-specific CSS -->
-    <link rel="stylesheet" href="/style/posts.css">
+    <link rel="stylesheet" href="/style/people.css">
 
     <title>/POSTS</title>
 </head>
 <body>
+
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container-fluid">
             <a class="navbar-brand" href="posts.html">
@@ -54,19 +55,10 @@
             </div>
 
             <div class="col-sm-8 text-left">
-                <header class="d-flex justify-content-between align-items-center p-3 mb-3 border-bottom">
-                    <h4>My Feed</h4>
-                </header>
-
-                <main class="container">
-                    <div class="d-flex justify-content-end mb-3">
-                        <select id="sort-options" class="form-select w-auto">
-                            <option value="recent">Sort by: Most Recent</option>
-                            <option value="author">Sort by: Username</option>
-                        </select>
-                    </div>
-                    <div id="posts-container" class="row"></div>
-                </main>
+                <div class="container">
+                    <h1>Users List</h1>
+                    <div id="users-list"></div>
+                  </div>
             </div>
 
             <div class="col-sm-2 sidenav">
@@ -81,16 +73,15 @@
     </div>
 
     <footer class="container-fluid text-center">
-        </div>
-        <div class="card-body">
-          <blockquote class="blockquote mb-0">
-            <h5>"Great things in business are never done by one person; they're done by a team of people." - Steve Jobs</h5>
-            <footer class="blockquote-footer">PBS documentary series "Triumph of the Nerds." 1995</footer>
-          </blockquote>
-    </footer>
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <h5>"Great things in business are never done by one person; they're done by a team of people." - Steve Jobs</h5>
+        <footer class="blockquote-footer">PBS documentary series "Triumph of the Nerds." 1995</footer>
+      </blockquote>
+</footer>
 
-    <!-- Page-specific code -->
-    <script src="/scripts/auth.js"></script>
-    <script src="/scripts/posts.js"></script>
+<script src="/scripts/auth.js"></script>
+<script src="/scripts/people.js"></script>
 </body>
 </html>

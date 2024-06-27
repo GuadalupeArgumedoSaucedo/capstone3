@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to retrieve posts asynchronously
     async function getPosts() {
         try {
-            const response = await fetch(`${apiBaseURL}/api/posts?limit=10&offset=0`, {
+            const response = await fetch(`${apiBaseURL}/api/posts`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
