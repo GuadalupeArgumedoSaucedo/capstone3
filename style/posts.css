@@ -59,7 +59,7 @@ nav {
   height: 100%;
 }
 
-h4 {
+h1 {
   color: #2596be;
 }
 
@@ -73,6 +73,14 @@ footer {
 
 .blockquote-footer {
   color: #4bdbc1;
+}
+
+#sort-options{
+  margin-top:2%;
+}
+
+.well{
+  padding-top: 50%;
 }
 
 .card-title,
@@ -250,3 +258,4 @@ body.dark-mode .sidenav {
 .input:checked + .slider:before {
   transform: translateX(30px);
 }
+

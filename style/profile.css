@@ -66,6 +66,9 @@ nav {
   height: 100%;
 }
 
+h1{
+  color: #2596be;
+}
 
 /* Ensure footer stays at the bottom */
 footer {
