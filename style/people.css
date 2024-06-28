@@ -1,246 +1,246 @@
 /* Posts Page CSS */
 /* Set black background color, white text and some padding */
 nav {
-    background-color: #4bdbc1;
-  }
-  
-  /* Ensure the navbar's container uses flex layout */
-  .navbar .container-fluid {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  /* Ensure the nav links and the logout button are on the same flex line */
-  .navbar .navbar-nav {
-    display: flex;
-    flex-direction: row; /* Ensure nav items are in a row */
-    flex-grow: 1;
-  }
-  
-  /* Adjust nav link margins to ensure proper spacing */
-  .navbar .nav-link {
-    margin-right: 10px; /* Adjust the margin as needed */
-    color: #000000; /* Original color */
-    transition: color 0.3s; /* Smooth transition for color change */
-  }
-  
-  /* Change nav link color to white on hover */
-  .navbar .nav-link:hover {
-    color: #ffffff; /* Change to white on hover */
-  }
-  
-  /* Push the logout button to the right */
-  .navbar .navbar-nav .nav-item:last-child {
-    margin-left: auto;
-  }
-  
-  /* Remove the navbar's default margin-bottom and rounded borders */ 
-  .navbar {
-    margin-bottom: 0;
-    border-radius: 0;
-  }
-  
-  /* Use Flexbox for the main content area to ensure it stretches properly */  
-  .container-fluid {
-    display: flex;
-  }
-  
-  /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-  .row.content {
-    flex-grow: 1;
-    display: flex;
-  }
-  
-  /* Set gray background color and 100% height */
-  .sidenav {
-    padding-top: 20px;
-    background-color: #f1f1f1;
-    height: 100%;
-  }
-  
-  
-  /* Ensure footer stays at the bottom */
-  footer {
-    background-color: #555;
-    color: white;
-    padding: 15px;
-    margin-top: auto;
-  }
-  
-  .blockquote-footer {
-    color: #4bdbc1;
-  }
-  
+  background-color: #4bdbc1;
+}
+
+/* Ensure the navbar's container uses flex layout */
+.navbar .container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Ensure the nav links and the logout button are on the same flex line */
+.navbar .navbar-nav {
+  display: flex;
+  flex-direction: row; /* Ensure nav items are in a row */
+  flex-grow: 1;
+}
+
+/* Adjust nav link margins to ensure proper spacing */
+.navbar .nav-link {
+  margin-right: 10px; /* Adjust the margin as needed */
+  color: #000000; /* Original color */
+  transition: color 0.3s; /* Smooth transition for color change */
+}
+
+/* Change nav link color to white on hover */
+.navbar .nav-link:hover {
+  color: #ffffff; /* Change to white on hover */
+}
+
+/* Push the logout button to the right */
+.navbar .navbar-nav .nav-item:last-child {
+  margin-left: auto;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/* Use Flexbox for the main content area to ensure it stretches properly */  
+.container-fluid {
+  display: flex;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+  flex-grow: 1;
+  display: flex;
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+  padding-top: 20px;
+  background-color: #f1f1f1;
+  height: 100%;
+}
+
+
+/* Ensure footer stays at the bottom */
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+  margin-top: auto;
+}
+
+.blockquote-footer {
+  color: #4bdbc1;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
-  .user-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-  }
-  
-  .user-card h3 {
-    margin-top: 0;
-  }
-  
-  .user-card p {
-    margin-bottom: 5px;
-  }
-  
-  .user-card p:last-child {
-    margin-bottom: 0;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+.user-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.user-card h3 {
+  margin-top: 0;
+}
+
+.user-card p {
+  margin-bottom: 5px;
+}
+
+.user-card p:last-child {
+  margin-bottom: 0;
+}
 
 /* Light mode styles */
 body {
-  background-color: #ffffff;
-  color: #000000;
+background-color: #ffffff;
+color: #000000;
 }
 
 .sidenav {
-  background-color: #f1f1f1; /* Light mode background color */
+background-color: #f1f1f1; /* Light mode background color */
 }
 
 /* Dark mode styles */
 body.dark-mode {
-  background-color: #333333;
-  color: #ffffff;
+background-color: #333333;
+color: #ffffff;
 }
 
 body.dark-mode .sidenav {
-  background-color: #242323; /* Dark mode background color */
+background-color: #242323; /* Dark mode background color */
 }
 
 body.dark-mode .container {
-  background-color: #242323
+background-color: #242323
 }
 
 /* Add more specific styles as needed for your application */
-  
+
 .switch {
-  font-size: 17px;
-  position: relative;
-  display: inline-block;
-  width: 64px;
-  height: 34px;
+font-size: 17px;
+position: relative;
+display: inline-block;
+width: 64px;
+height: 34px;
 }
 
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+opacity: 0;
+width: 0;
+height: 0;
 }
 
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #73C0FC;
-  transition: .4s;
-  border-radius: 30px;
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #73C0FC;
+transition: .4s;
+border-radius: 30px;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 30px;
-  width: 30px;
-  border-radius: 20px;
-  left: 2px;
-  bottom: 2px;
-  z-index: 2;
-  background-color: #e8e8e8;
-  transition: .4s;
+position: absolute;
+content: "";
+height: 30px;
+width: 30px;
+border-radius: 20px;
+left: 2px;
+bottom: 2px;
+z-index: 2;
+background-color: #e8e8e8;
+transition: .4s;
 }
 
 .sun svg {
-  position: absolute;
-  top: 6px;
-  left: 36px;
-  z-index: 1;
-  width: 24px;
-  height: 24px;
+position: absolute;
+top: 6px;
+left: 36px;
+z-index: 1;
+width: 24px;
+height: 24px;
 }
 
 .moon svg {
-  fill: #73C0FC;
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  z-index: 1;
-  width: 24px;
-  height: 24px;
+fill: #73C0FC;
+position: absolute;
+top: 5px;
+left: 5px;
+z-index: 1;
+width: 24px;
+height: 24px;
 }
 
 /* .switch:hover */.sun svg {
-  animation: rotate 15s linear infinite;
+animation: rotate 15s linear infinite;
 }
 
 @keyframes rotate {
- 
-  0% {
-    transform: rotate(0);
-  }
 
-  100% {
-    transform: rotate(360deg);
-  }
+0% {
+  transform: rotate(0);
+}
+
+100% {
+  transform: rotate(360deg);
+}
 }
 
 /* .switch:hover */.moon svg {
-  animation: tilt 5s linear infinite;
+animation: tilt 5s linear infinite;
 }
 
 @keyframes tilt {
- 
-  0% {
-    transform: rotate(0deg);
-  }
 
-  25% {
-    transform: rotate(-10deg);
-  }
+0% {
+  transform: rotate(0deg);
+}
 
-  75% {
-    transform: rotate(10deg);
-  }
+25% {
+  transform: rotate(-10deg);
+}
 
-  100% {
-    transform: rotate(0deg);
-  }
+75% {
+  transform: rotate(10deg);
+}
+
+100% {
+  transform: rotate(0deg);
+}
 }
 
 .input:checked + .slider {
-  background-color: #183153;
+background-color: #183153;
 }
 
 .input:focus + .slider {
-  box-shadow: 0 0 1px #183153;
+box-shadow: 0 0 1px #183153;
 }
 
 .input:checked + .slider:before {
-  transform: translateX(30px);
+transform: translateX(30px);
 }

@@ -61,6 +61,9 @@ const displayUserProfile = async () => {
     }
 }
 
+// Example usage
+document.addEventListener('DOMContentLoaded', displayUserProfile);
+
 document.addEventListener('DOMContentLoaded', () => {
     const modeToggleCheckbox = document.querySelector('.switch .input');
     const body = document.body;
@@ -97,5 +100,3 @@ document.addEventListener('DOMContentLoaded', () => {
         enableLightMode();
     }
 });
-
-
