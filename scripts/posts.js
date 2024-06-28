@@ -193,7 +193,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             <h6 class="card-subtitle mb-2 text-muted">${new Date(post.createdAt).toLocaleString()}</h6>
                             <p class="card-text">${post.text}</p>
                             <div class = "postButtons">
+
                             <button class="btn btn-like" data-post-id="${post._id}" data-liked="${userLiked}">${userLiked ? 'Unlike' : 'Like'}</button>
+                            
                             <span class = "likeCount" class="like-count ms-2" id="like-count-${post._id}">${post.likes.length}</span>
                             ${post.username === getLoginData().username ? `<button class="btn btn-danger btn-delete" data-post-id="${post._id}" style="margin-left: 10px;">Delete</button>` : ''}
                             </div>
