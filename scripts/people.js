@@ -1,20 +1,32 @@
 document.addEventListener('DOMContentLoaded', async function() {
     const usersList = document.getElementById('users-list');
     const searchBar = document.getElementById('search-bar');
+    const logoutButton = document.getElementById('logout-button'); // Assuming you have a logout button in your HTML
   
+    function getLoginData() {
+        const loginJSON = window.localStorage.getItem("login-data");
+        return JSON.parse(loginJSON) || {};
+    }
+
     async function fetchUsers() {
+        const loginData = getLoginData();
+        if (!loginData.token) {
+            usersList.innerHTML = '<p>User is not logged in.</p>';
+            return;
+        }
+
         try {
             const response = await fetch('http://microbloglite.us-east-2.elasticbeanstalk.com/api/users?limit=100&offset=0', {
                 headers: {
                     'Accept': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imxhcmd1bWVkbyIsImlhdCI6MTcxOTU1NzcxNCwiZXhwIjoxNzE5NjQ0MTE0fQ.ER4nZ_f7LHj5zlaO9S6ubLyuBUfa5wQjUxlls0wm9r8'
+                    'Authorization': `Bearer ${loginData.token}`
                 }
             });
-  
+
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-  
+
             const users = await response.json();
             displayUsers(users);
         } catch (error) {
@@ -39,18 +51,24 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
   
     async function searchUser(username) {
+        const loginData = getLoginData();
+        if (!loginData.token) {
+            usersList.innerHTML = '<p>User is not logged in.</p>';
+            return;
+        }
+
         try {
             const response = await fetch(`http://microbloglite.us-east-2.elasticbeanstalk.com/api/users/${username}`, {
                 headers: {
                     'Accept': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imxhcmd1bWVkbyIsImlhdCI6MTcxOTU1NzcxNCwiZXhwIjoxNzE5NjQ0MTE0fQ.ER4nZ_f7LHj5zlaO9S6ubLyuBUfa5wQjUxlls0wm9r8'
+                    'Authorization': `Bearer ${loginData.token}`
                 }
             });
-  
+
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-  
+
             const user = await response.json();
             displayUsers([user]);
         } catch (error) {
@@ -67,6 +85,12 @@ document.addEventListener('DOMContentLoaded', async function() {
             fetchUsers();
         }
     });
+
+    // Event listener for logout button
+    logoutButton.addEventListener('click', function() {
+        logout();
+    });
   
     fetchUsers();
-  });
+});
+
