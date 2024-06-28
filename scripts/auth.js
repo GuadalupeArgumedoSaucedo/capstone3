@@ -5,7 +5,7 @@
 const apiBaseURL = "http://microbloglite.us-east-2.elasticbeanstalk.com";
 // Backup server (mirror): "https://microbloglite.onrender.com"
 
-// NOTE: API documentation is available at /docs 
+// NOTE: API documentation is available at /docs
 // For example: http://microbloglite.us-east-2.elasticbeanstalk.com/docs
 
 // You can use this function to get the login data of the logged-in
@@ -29,7 +29,7 @@ function isLoggedIn() {
 // you may need to write.
 async function login(loginData) {
     // POST /auth/login
-    const options = { 
+    const options = {
         method: "POST",
         headers: {
             // This header specifies the type of content we're sending.
@@ -44,8 +44,8 @@ async function login(loginData) {
     const loginData_1 = await response.json();
     if (loginData_1.message === "Invalid username or password") {
         console.error(loginData_1);
-        // Here is where you might want to add an error notification 
-        // or other visible indicator to the page so that the user is  
+        // Here is where you might want to add an error notification
+        // or other visible indicator to the page so that the user is
         // informed that they have entered the wrong login info.
         return null;
     }
@@ -62,9 +62,9 @@ function logout() {
     const loginData = getLoginData();
 
     // GET /auth/logout
-    const options = { 
+    const options = {
         method: "GET",
-        headers: { 
+        headers: {
             // This header is how we authenticate our user with the
             // server for any API requests which require the user
             // to be logged-in in order to have access.
@@ -74,15 +74,15 @@ function logout() {
     };
 
     fetch(apiBaseURL + "/auth/logout", options)
-        .then(response => response.json())
-        .then(data => console.log(data))
+        .then((response) => response.json())
+        .then((data) => console.log(data))
         .finally(() => {
             // We're using `finally()` so that we will continue with the
-            // browser side of logging out (below) even if there is an 
+            // browser side of logging out (below) even if there is an
             // error with the fetch request above.
 
-            window.localStorage.removeItem("login-data");  // remove login data from LocalStorage
-            window.location.assign("/");  // redirect back to landing page
+            window.localStorage.removeItem("login-data"); // remove login data from LocalStorage
+            window.location.assign("/"); // redirect back to landing page
         });
 }
 

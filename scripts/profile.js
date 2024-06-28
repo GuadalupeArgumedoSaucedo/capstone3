@@ -1,77 +1,81 @@
-'use strict';
+"use strict";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // Check if user is logged in
+    // Check if the user is logged in by calling isLoggedIn() function
     if (!isLoggedIn()) {
-        window.location.replace("index.html"); // Redirect to index.html if user is not logged in
-        return;
+        // Redirect to index.html if not logged in
+        window.location.replace("index.html");
+        return; // Exit the function early if redirected
     }
 
-    const logoutButton = document.getElementById('logout-button'); // Reference to the logout button element
-    const postForm = document.getElementById('post-form'); // Reference to the form element for creating posts
-    const editProfileForm = document.getElementById('edit-profile-form'); // Reference to the form element for editing profile
-    const profileInfo = document.getElementById('profile-info'); // Reference to display profile information
-    const userPosts = document.getElementById('user-posts'); // Reference to display user posts
+    // Get references to important DOM elements
+    const logoutButton = document.getElementById("logout-button"); 
+    const postForm = document.getElementById("post-form"); 
+    const editProfileForm = document.getElementById("edit-profile-form"); 
+    const profileInfo = document.getElementById("profile-info"); 
+    const userPosts = document.getElementById("user-posts"); 
 
-    // Function to handle logout when logout button is clicked
-    logoutButton.addEventListener('click', () => {
-        logout(); // Call the logout function (presumably logs the user out)
+    // Event listener for clicking logout button
+    logoutButton.addEventListener("click", () => {
+        logout(); // Calls logout function when clicked
     });
 
     // Function to fetch and display user profile information
     const displayUserProfile = async () => {
-        const loginData = getLoginData();
+        const loginData = getLoginData(); // Retrieves user's login data
         try {
-            // Fetch user profile data
+            // Fetch user profile data from the API
             const profileResponse = await fetch(apiBaseURL + `/api/users/${loginData.username}`, {
                 headers: {
-                    "Authorization": `Bearer ${loginData.token}`
-                }
+                    Authorization: `Bearer ${loginData.token}`,
+                },
             });
 
             if (!profileResponse.ok) {
-                throw new Error('Failed to fetch profile data');
+                throw new Error("Failed to fetch profile data"); // Throws error if fetching profile fails
             }
 
-            const profileData = await profileResponse.json();
-            const { username, fullName, bio } = profileData;
+            const profileData = await profileResponse.json(); // Parses JSON response
+            const { username, fullName, bio } = profileData; // Destructures profile data
 
-            // Display profile information
+            // Display profile information in HTML
             profileInfo.innerHTML = `
                 <p><strong>Username:</strong> ${username}</p>
                 <p><strong>Full Name:</strong> ${fullName}</p>
-                <p><strong>Bio:</strong> ${bio || 'No bio provided'}</p>
+                <p><strong>Bio:</strong> ${bio || "No bio provided"}</p>
             `;
         } catch (error) {
-            console.error('Error fetching profile:', error);
-            profileInfo.innerHTML = '<p>Failed to fetch profile information.</p>';
+            console.error("Error fetching profile:", error); // Logs error if fetching profile fails
+            profileInfo.innerHTML = "<p>Failed to fetch profile information.</p>"; // Displays error message
         }
     };
 
-    // Function to fetch and display user posts
+    // Function to fetch and display user's posts
     const displayUserPosts = async () => {
-        const loginData = getLoginData();
-        const username = loginData.username;
+        const loginData = getLoginData(); // 
+        const username = loginData.username; 
 
         try {
-            // Fetch user posts
+            // Fetch user's posts from the API
             const postsResponse = await fetch(`${apiBaseURL}/api/posts?limit=100&offset=0&username=${username}`, {
                 headers: {
-                    "Authorization": `Bearer ${loginData.token}`
-                }
+                    Authorization: `Bearer ${loginData.token}`, // Include authorization token in headers
+                },
             });
 
             if (!postsResponse.ok) {
-                throw new Error(`Failed to fetch user posts: ${postsResponse.status} ${postsResponse.statusText}`);
+                throw new Error(`Failed to fetch user posts: ${postsResponse.status} ${postsResponse.statusText}`); // Throws error if fetching posts fails
             }
 
-            const postsData = await postsResponse.json();
+            const postsData = await postsResponse.json(); // Parses JSON response
 
-            // Display user posts
+            // Display user's posts in HTML
             if (postsData.length === 0) {
-                userPosts.innerHTML = '<p>No posts yet.</p>';
+                userPosts.innerHTML = "<p>No posts yet.</p>"; // Displays message if no posts found
             } else {
-                userPosts.innerHTML = postsData.map(post => `
+                userPosts.innerHTML = postsData
+                    .map(
+                        (post) => `
                     <div class="card mb-3">
                         <div class="card-body">
                             <p class="card-text">${post.text}</p>
@@ -79,164 +83,154 @@ document.addEventListener("DOMContentLoaded", async () => {
                             <span class="like-count ms-2" id="like-count-${post._id}">${post.likes.length}</span>
                         </div>
                     </div>
-                `).join('');
+                `
+                    )
+                    .join(""); // Generates HTML for each post and joins into a string
             }
         } catch (error) {
-            console.error('Error fetching user posts:', error);
-            userPosts.innerHTML = `<p>Failed to fetch user posts. Error: ${error.message}</p>`;
+            console.error("Error fetching user posts:", error); // Logs error if fetching posts fails
+            userPosts.innerHTML = `<p>Failed to fetch user posts. Error: ${error.message}</p>`; // Displays error message
         }
     };
 
-    // Load profile information and user posts on page load
+    // Load user profile information and posts when the page loads
     await Promise.all([
-        displayUserProfile(),
-        displayUserPosts()
+        displayUserProfile(), 
+        displayUserPosts(), 
     ]);
 
-    // Function to handle post creation when the post form is submitted (already implemented)
-    postForm.addEventListener('submit', async (event) => {
-        event.preventDefault(); // Prevent the default form submission behavior
+    // Event listener for submitting the post creation form
+    postForm.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevents default form submission behavior
 
-        // Retrieve the content of the post from the form input
-        const postContent = document.getElementById('post-content').value;
+        const postContent = document.getElementById("post-content").value; 
+        const loginData = getLoginData(); 
 
-        // Retrieve login data (like username and token) from localStorage
-        const loginData = getLoginData();
-
-        // Validate that the post content is not empty
         if (!postContent) {
-            alert('Post content cannot be empty.'); // Alert user if post content is empty
-            return;
+            alert("Post content cannot be empty."); 
+            return; // Exits function if post content is empty
         }
 
-        // Prepare data to send as JSON for creating a new post
+        // Data to send as JSON for creating a new post
         const postData = {
-            text: postContent, // Assign the post content to the 'text' property
+            text: postContent, // Assigns post content to 'text' property
         };
 
         try {
-            // Send a POST request to the API endpoint to create a new post
+            // Sends a POST request to API endpoint to create a new post
             const response = await fetch(apiBaseURL + "/api/posts", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json", // Specify JSON content type
-                    "Authorization": `Bearer ${loginData.token}`, // Attach authorization token in the header
+                    "Content-Type": "application/json", 
+                    Authorization: `Bearer ${loginData.token}`, 
                 },
-                body: JSON.stringify(postData), // Convert postData object to JSON string for the request body
+                body: JSON.stringify(postData), 
             });
 
-            // Check if the response is not successful
+            // Throws error if response is not successful
             if (!response.ok) {
-                const errorText = await response.text(); // Get error message from response body
-                throw new Error('Network response was not ok: ' + errorText); // Throw an error with the error message
+                const errorText = await response.text(); // Retrieves error message from response body
+                throw new Error("Network response was not ok: " + errorText); // Throws error with error message
             }
 
-            // If successful, parse the response JSON
-            const result = await response.json();
-            console.log(result); // Log the result (optional)
+            const result = await response.json(); // Parses JSON response
+            console.log(result); // Logs the result (optional)
 
-            // Optionally, clear the form input or show a success message
-            document.getElementById('post-content').value = ''; // Clear the form input after successful post creation
-            alert('Post created successfully.'); // Show an alert to notify user of successful post creation
+            document.getElementById("post-content").value = ""; 
+            alert("Post created successfully."); 
 
-            // Refresh user posts after successful creation
-            await displayUserPosts();
-
+            await displayUserPosts(); // Refreshes user posts after successful creation
         } catch (error) {
-            console.error('There has been a problem with your fetch operation:', error); // Log error if fetch operation fails
-            alert('Failed to create post: ' + error.message); // Show an alert to notify user of failed post creation
+            console.error("There has been a problem with your fetch operation:", error); 
+            alert("Failed to create post: " + error.message); 
         }
     });
 
-    // Function to handle profile update when the edit profile form is submitted (already implemented)
-    editProfileForm.addEventListener('submit', async (event) => {
-        event.preventDefault(); // Prevent the default form submission behavior
+    // Event listener for submitting the edit profile form
+    editProfileForm.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevents default form submission behavior
 
-        // Retrieve user information from the form inputs
-        const username = document.getElementById('username').value;
-        const fullName = document.getElementById('full-name').value;
-        const bio = document.getElementById('bio').value;
-        const password = document.getElementById('password').value;
+        // Retrieves user information from form inputs
+        const username = document.getElementById("username").value;
+        const fullName = document.getElementById("full-name").value;
+        const bio = document.getElementById("bio").value;
+        const password = document.getElementById("password").value;
 
-        // Retrieve login data (like username and token) from localStorage
-        const loginData = getLoginData();
+        const loginData = getLoginData(); 
 
-        // Prepare data to send as JSON for updating user information
+        // Data to send as JSON for updating user information
         const profileData = {
             username: username,
             fullName: fullName,
             bio: bio,
-            password: password
+            password: password,
         };
 
         try {
-            // Send a PUT request to the API endpoint to update user information
+            // Sends a PUT request to API endpoint to update user information
             const response = await fetch(apiBaseURL + `/api/users/${username}`, {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json", // Specify JSON content type
-                    "Authorization": `Bearer ${loginData.token}`, // Attach authorization token in the header
+                    "Content-Type": "application/json", 
+                    Authorization: `Bearer ${loginData.token}`, 
                 },
-                body: JSON.stringify(profileData), // Convert profileData object to JSON string for the request body
+                body: JSON.stringify(profileData), 
             });
 
-            // Check if the response is not successful
+            // Throws error if response is not successful
             if (!response.ok) {
-                const errorText = await response.text(); // Get error message from response body
-                throw new Error('Network response was not ok: ' + errorText); // Throw an error with the error message
+                const errorText = await response.text(); // Retrieves error message from response body
+                throw new Error("Network response was not ok: " + errorText); // Throws error with error message
             }
 
-            // If successful, parse the response JSON
-            const result = await response.json();
-            console.log(result); // Log the result (optional)
+            const result = await response.json(); // Parses JSON response
+            console.log(result); 
 
-            // Optionally, clear the form input or show a success message
-            alert('Profile updated successfully.'); // Show an alert to notify user of successful profile update
+            alert("Profile updated successfully."); 
 
-            // Refresh profile information after successful update
-            await displayUserProfile();
-
+            await displayUserProfile(); // Refreshes profile information after successful update
         } catch (error) {
-            console.error('There has been a problem with your fetch operation:', error); // Log error if fetch operation fails
-            alert('Failed to update profile: ' + error.message); // Show an alert to notify user of failed profile update
+            console.error("There has been a problem with your fetch operation:", error); 
+            alert("Failed to update profile: " + error.message); 
         }
     });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const modeToggleCheckbox = document.querySelector('.switch .input');
+// Another event listener for when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+    const modeToggleCheckbox = document.querySelector(".switch .input"); 
     const body = document.body;
 
-    // Check if user has a stored preference for mode
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    // Check if user has a stored preference for dark mode
+    const isDarkMode = localStorage.getItem("darkMode") === "true";
 
-    // Function to set dark mode
+    // Function to enable dark mode
     const enableDarkMode = () => {
-        body.classList.add('dark-mode');
-        localStorage.setItem('darkMode', 'true');
+        body.classList.add("dark-mode"); // Adds 'dark-mode' class to body for dark mode styles
+        localStorage.setItem("darkMode", "true"); // Stores dark mode preference in local storage
     };
 
-    // Function to set light mode
+    // Function to enable light mode
     const enableLightMode = () => {
-        body.classList.remove('dark-mode');
-        localStorage.setItem('darkMode', 'false');
+        body.classList.remove("dark-mode"); // Removes 'dark-mode' class from body for light mode styles
+        localStorage.setItem("darkMode", "false"); // Stores light mode preference in local storage
     };
 
-    // Toggle mode on checkbox change
-    modeToggleCheckbox.addEventListener('change', () => {
+    // Event listener for toggle switch change
+    modeToggleCheckbox.addEventListener("change", () => {
         if (modeToggleCheckbox.checked) {
-            enableDarkMode();
+            enableDarkMode(); 
         } else {
-            enableLightMode();
+            enableLightMode(); 
         }
     });
 
-    // Initialize based on user preference
+    // Initialize mode based on user's stored preference
     if (isDarkMode) {
-        modeToggleCheckbox.checked = true;
-        enableDarkMode();
+        modeToggleCheckbox.checked = true; // Sets toggle switch to checked if dark mode preference is stored
+        enableDarkMode(); 
     } else {
-        enableLightMode();
+        enableLightMode(); 
     }
 });
 

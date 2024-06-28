@@ -1,76 +1,70 @@
-/* Posts Page CSS */
-/* Set black background color, white text and some padding */
+/* Profile Page CSS */
+/* navbar */
 nav {
   background-color: #4bdbc1;
 }
 
-/* Ensure the navbar's container uses flex layout */
 .navbar .container-fluid {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Ensure the nav links and the logout button are on the same flex line */
 .navbar .navbar-nav {
   display: flex;
-  flex-direction: row; /* Ensure nav items are in a row */
+  flex-direction: row; 
   flex-grow: 1;
 }
 
-/* Adjust nav link margins to ensure proper spacing */
 .navbar .nav-link {
-  margin-right: 10px; /* Adjust the margin as needed */
-  color: #000000; /* Original color */
-  transition: color 0.3s; /* Smooth transition for color change */
+  margin-right: 10px; 
+  color: #000000; 
+  transition: color 0.3s; 
 }
 
-/* Change nav link color to white on hover */
 .navbar .nav-link:hover {
-  color: #ffffff; /* Change to white on hover */
+  color: #ffffff; 
 }
 
-/* Push the logout button to the right */
 .navbar .navbar-nav .nav-item:last-child {
   margin-left: auto;
 }
 
-/* Remove the navbar's default margin-bottom and rounded borders */ 
 .navbar {
-  margin-bottom: 0; 
+  margin-bottom: 0;
   border-radius: 0;
 }
 
-.img-fluid{
+/* picture */
+.img-fluid {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 55%;
 }
 
-/* Use Flexbox for the main content area to ensure it stretches properly */  
+/* main content */
 .container-fluid {
   display: flex;
 }
 
-/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {
   flex-grow: 1;
   display: flex;
 }
 
-/* Set gray background color and 100% height */
+h1 {
+  color: #2596be;
+}
+
+/* side nav */
 .sidenav {
   padding-top: 20px;
   background-color: #f1f1f1;
   height: 100%;
 }
 
-h1{
-  color: #2596be;
-}
-
-/* Ensure footer stays at the bottom */
+/* footer */
 footer {
   background-color: #555;
   color: white;
@@ -81,6 +75,7 @@ footer {
 .blockquote-footer {
   color: #4bdbc1;
 }
+
 /* Light mode styles */
 body {
   background-color: #ffffff;
@@ -88,7 +83,7 @@ body {
 }
 
 .sidenav {
-  background-color: #f1f1f1; /* Light mode background color */
+  background-color: #f1f1f1; 
 }
 
 /* Dark mode styles */
@@ -98,10 +93,10 @@ body.dark-mode {
 }
 
 body.dark-mode .sidenav {
-  background-color: #242323; /* Dark mode background color */
+  background-color: #242323; 
 }
 
-/* Add more specific styles as needed for your application */
+/* dark mode slider */
 
 .switch {
   font-size: 17px;
@@ -124,8 +119,8 @@ body.dark-mode .sidenav {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #73C0FC;
-  transition: .4s;
+  background-color: #73c0fc;
+  transition: 0.4s;
   border-radius: 30px;
 }
 
@@ -139,7 +134,7 @@ body.dark-mode .sidenav {
   bottom: 2px;
   z-index: 2;
   background-color: #e8e8e8;
-  transition: .4s;
+  transition: 0.4s;
 }
 
 .sun svg {
@@ -152,7 +147,7 @@ body.dark-mode .sidenav {
 }
 
 .moon svg {
-  fill: #73C0FC;
+  fill: #73c0fc;
   position: absolute;
   top: 5px;
   left: 5px;
@@ -161,41 +156,39 @@ body.dark-mode .sidenav {
   height: 24px;
 }
 
-/* .switch:hover */.sun svg {
+.sun svg {
   animation: rotate 15s linear infinite;
 }
 
 @keyframes rotate {
- 
   0% {
-    transform: rotate(0);
+      transform: rotate(0);
   }
 
   100% {
-    transform: rotate(360deg);
+      transform: rotate(360deg);
   }
 }
 
-/* .switch:hover */.moon svg {
+.moon svg {
   animation: tilt 5s linear infinite;
 }
 
 @keyframes tilt {
- 
   0% {
-    transform: rotate(0deg);
+      transform: rotate(0deg);
   }
 
   25% {
-    transform: rotate(-10deg);
+      transform: rotate(-10deg);
   }
 
   75% {
-    transform: rotate(10deg);
+      transform: rotate(10deg);
   }
 
   100% {
-    transform: rotate(0deg);
+      transform: rotate(0deg);
   }
 }
 
