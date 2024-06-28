@@ -171,51 +171,53 @@ document.addEventListener("DOMContentLoaded", () => {
         displayPosts(posts); // Display sorted posts
     }
 
-// Function to display posts on the webpage
-function displayPosts(posts) {
-    postsContainer.innerHTML = ''; // Clear existing posts in the container
-    posts.forEach(post => {
-        const userLiked = post.likes.some(like => like.username === getLoginData().username); // Check if current user has liked this post
-        const postElement = document.createElement('div'); // Create a new div element for each post
-        postElement.id = `post-${post._id}`; // Set id for the post element
-        postElement.className = 'col-12 mb-4'; // Assign class for styling
-
-        // Generate Gravatar URL based on user's email
-        const gravatarUrl = `https://www.gravatar.com/avatar/${md5(post.email)}?s=150`;
-
-        postElement.innerHTML = `
-            <div class="card">
-                <div class="card-body d-flex">
-                    <div>
-                        <img src="${gravatarUrl}" alt="Profile Picture" class="rounded-circle me-3" style="width: 50px; height: 50px;">
-                    </div>
-                    <div>
-                        <h5 class="card-title">${post.username}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">${new Date(post.createdAt).toLocaleString()}</h6>
-                        <p class="card-text">${post.text}</p>
-                        <button class="btn btn-like" data-post-id="${post._id}" data-liked="${userLiked}">${userLiked ? 'Unlike' : 'Like'}</button>
-                        ${post.username === getLoginData().username ? `<button class="btn btn-danger btn-delete" data-post-id="${post._id}" style="margin-left: 10px;">Delete</button>` : ''}
-                        <span class="like-count ms-2" id="like-count-${post._id}">${post.likes.length}</span>
+    function displayPosts(posts) {
+        postsContainer.innerHTML = ''; // Clear existing posts in the container
+        posts.forEach(post => {
+            const userLiked = post.likes.some(like => like.username === getLoginData().username); // Check if current user has liked this post
+            const postElement = document.createElement('div'); // Create a new div element for each post
+            postElement.id = `post-${post._id}`; // Set id for the post element
+            postElement.className = 'col-12 mb-4'; // Assign class for styling
+    
+            // Generate Gravatar URL based on user's email
+            const gravatarUrl = `https://www.gravatar.com/avatar/${md5(post.email)}?s=150`;
+    
+            postElement.innerHTML = `
+                <div class="card">
+                    <div class="card-body d-flex">
+                        <div>
+                            <img src="${gravatarUrl}" alt="Profile Picture" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                        </div>
+                        <div>
+                            <h5 class="card-title">${post.username}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">${new Date(post.createdAt).toLocaleString()}</h6>
+                            <p class="card-text">${post.text}</p>
+                            <div class = "postButtons">
+                            <button class="btn btn-like" data-post-id="${post._id}" data-liked="${userLiked}">${userLiked ? 'Unlike' : 'Like'}</button>
+                            <span class = "likeCount" class="like-count ms-2" id="like-count-${post._id}">${post.likes.length}</span>
+                            ${post.username === getLoginData().username ? `<button class="btn btn-danger btn-delete" data-post-id="${post._id}" style="margin-left: 10px;">Delete</button>` : ''}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
-        postsContainer.appendChild(postElement); // Append the post element to the posts container 
-
-        // Add event listener to delete button (only if the post belongs to the logged-in user)
-        if (post.username === getLoginData().username) {
-            const deleteButton = postElement.querySelector('.btn-delete');
-            if (deleteButton) {
-                deleteButton.addEventListener('click', () => handlePostDelete(post._id));
+            `;
+            postsContainer.appendChild(postElement); // Append the post element to the posts container
+    
+            // Add event listener to delete button (only if the post belongs to the logged-in user)
+            if (post.username === getLoginData().username) {
+                const deleteButton = postElement.querySelector('.btn-delete');
+                if (deleteButton) {
+                    deleteButton.addEventListener('click', () => handlePostDelete(post._id));
+                }
             }
-        }
-    });
-
-    // Add event listeners to like buttons
-    document.querySelectorAll('.btn-like').forEach(button => {
-        button.addEventListener('click', handleLikeButtonClick); // Attach click event listener for each like button
-    });
-}
+        });
+    
+        // Add event listeners to like buttons
+        document.querySelectorAll('.btn-like').forEach(button => {
+            button.addEventListener('click', handleLikeButtonClick); // Attach click event listener for each like button
+        });
+    }
+    
 
 
 
@@ -250,4 +252,4 @@ function topFunction() {
   document.body.scrollTop = 0; // For Safari
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
- 
+  

@@ -35,13 +35,13 @@ nav {
   margin-left: auto;
 }
 
-/* Remove the navbar's default margin-bottom and rounded borders */ 
+/* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
   margin-bottom: 0;
   border-radius: 0;
 }
 
-/* Use Flexbox for the main content area to ensure it stretches properly */  
+/* Use Flexbox for the main content area to ensure it stretches properly */
 .container-fluid {
   display: flex;
 }
@@ -75,25 +75,35 @@ footer {
   color: #4bdbc1;
 }
 
-.card-title{
-  text-align: start;
+.card-title,
+.card-subtitle,
+.card-text,
+.btn {
+  text-align: left; /* Ensure all elements are aligned to the left */
 }
 
-#post-time{
-  text-align: start;
+.card {
+  display: flex;
+  flex-direction: column;
 }
 
-.card-text{
-  text-align: start;
+.likeCount {
+  display: inline-flex;
+  align-items: center; /* Align like count vertically with the button */
 }
 
+.card .btn-like,
+.card .btn-delete {
+  margin-right: 10px;
+}
+.postButtons{
+  display: flex; 
+  justify-content: left; 
+}
 #post-button {
   padding-right: 100%;
-  
 }
-#post-likes{
-  text-align: start;
-}
+
 #myBtn {
   display: none; /* Hidden by default */
   position: fixed; /* Fixed/sticky position */
@@ -113,6 +123,7 @@ footer {
 #myBtn:hover {
   background-color: #555; /* Add a dark-grey background on hover */
 }
+
 /* Light mode styles */
 body {
   background-color: #ffffff;
@@ -132,5 +143,3 @@ body.dark-mode {
 body.dark-mode .sidenav {
   background-color: #242323; /* Dark mode background color */
 }
-
-/* Add more specific styles as needed for your application */
