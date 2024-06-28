@@ -61,12 +61,8 @@ const displayUserProfile = async () => {
     }
 }
 
-// Example usage
-document.addEventListener('DOMContentLoaded', displayUserProfile);
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    const modeToggleBtn = document.getElementById('mode-toggle-btn');
+document.addEventListener('DOMContentLoaded', () => {
+    const modeToggleCheckbox = document.querySelector('.switch .input');
     const body = document.body;
 
     // Check if user has a stored preference for mode
@@ -84,20 +80,22 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('darkMode', 'false');
     };
 
-    // Toggle mode on button click
-    modeToggleBtn.addEventListener('click', () => {
-        if (body.classList.contains('dark-mode')) {
-            enableLightMode();
-        } else {
+    // Toggle mode on checkbox change
+    modeToggleCheckbox.addEventListener('change', () => {
+        if (modeToggleCheckbox.checked) {
             enableDarkMode();
+        } else {
+            enableLightMode();
         }
     });
 
     // Initialize based on user preference
     if (isDarkMode) {
+        modeToggleCheckbox.checked = true;
         enableDarkMode();
     } else {
         enableLightMode();
     }
 });
+
 
